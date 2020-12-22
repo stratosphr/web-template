@@ -2,10 +2,18 @@
     <h1>Hello, World!</h1>
 </template>
 
-<script>
-export default {
-    name: 'index'
-}
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+    name: 'index',
+
+    methods: {
+        typescript(): boolean {
+            return true
+        }
+    }
+})
 </script>
 
 <style scoped>
