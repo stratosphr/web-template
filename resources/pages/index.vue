@@ -1,19 +1,15 @@
 <template>
-    <h1>Hello, World!</h1>
+    <sample />
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Sample from '~/components/samples/sample.vue'
 
-export default Vue.extend({
+export default {
     name: 'index',
 
-    methods: {
-        typescript(): boolean {
-            return true
-        }
-    }
-})
+    components: { Sample }
+}
 </script>
 
 <style scoped>
