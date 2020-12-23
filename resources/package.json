@@ -2,14 +2,22 @@
     "name": "my-app",
     "version": "1.0.0",
     "scripts": {
-        "dev": "nuxt",
-        "build": "nuxt build",
-        "generate": "nuxt generate",
-        "start": "nuxt start"
+        "dev": "nuxt-ts",
+        "dev-debug": "node --inspect node_modules/.bin/nuxt-ts",
+        "build": "nuxt-ts build",
+        "generate": "nuxt-ts generate",
+        "start": "nuxt-ts start",
+        "lint": "eslint --ext .ts,.js,.vue ."
     },
-    "dependencies": {
+    "devDependencies": {
         "@nuxt/types": "^2.14.12",
         "@nuxt/typescript-build": "^2.0.3",
-        "nuxt": "^2.14.12"
+        "@nuxtjs/eslint-config-typescript": "^5.0.0",
+        "eslint": "^7.16.0"
+    },
+    "dependencies": {
+        "@nuxt/typescript-runtime": "^2.0.0",
+        "nuxt": "latest",
+        "typescript": "^4.1.3"
     }
 }
