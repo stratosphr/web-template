@@ -9,8 +9,16 @@ export default abstract class AFilterBuilder {
         return this.addConstraint('=', value)
     }
 
+    public startsWith(value: string | number): this {
+        return this.like(`${value}%`)
+    }
+
     public contains(value: string | number): this {
         return this.like(`%${value}%`)
+    }
+
+    public endsWith(value: string | number): this {
+        return this.like(`%${value}`)
     }
 
     public like(value: string | number): this {
