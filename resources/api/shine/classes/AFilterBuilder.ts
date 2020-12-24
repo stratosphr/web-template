@@ -25,7 +25,7 @@ export default abstract class AFilterBuilder {
         return this.addConstraint('like', value)
     }
 
-    protected addConstraint(operator: string, ...params: any): this {
+    protected addConstraint(operator: string, params: any): this {
         if (this.filters[operator] === undefined) {
             this.filters[operator] = []
         }
