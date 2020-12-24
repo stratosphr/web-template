@@ -5,22 +5,27 @@ export default abstract class AFilterBuilder {
         this.filters = {}
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public equals(value: string | number): this {
         return this.addConstraint('=', value)
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public startsWith(value: string | number): this {
         return this.like(`${value}%`)
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public contains(value: string | number): this {
         return this.like(`%${value}%`)
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public endsWith(value: string | number): this {
         return this.like(`%${value}`)
     }
 
+    // noinspection JSUnusedGlobalSymbols
     public like(value: string | number): this {
         return this.addConstraint('like', value)
     }

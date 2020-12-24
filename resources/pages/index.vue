@@ -21,7 +21,7 @@ export default {
         filters(): Filter<IUser> {
             return {
                 post: {
-                    title: $string().contains('test').like('%test%').equals('test').startsWith('start').endsWith('end'),
+                    title: $string(),
                     comments: {
                         content: $string(),
                         likes: $number(),
