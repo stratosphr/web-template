@@ -3,7 +3,6 @@
 </template>
 
 <script lang="ts">
-
 import { sampleJS } from '~/api/samples/sample-js'
 import { sampleTS } from '~/api/samples/sample-ts'
 

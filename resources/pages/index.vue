@@ -1,8 +1,21 @@
 <template>
-    <div>
-        <sample />
-        {{ filters() }}
-    </div>
+    <v-app>
+        <v-row>
+            <v-col>
+                <v-card>
+                    <sample />
+                    <v-card-actions>
+                        <v-btn>
+                            Test
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
+            <v-col>
+                {{ filters() }}
+            </v-col>
+        </v-row>
+    </v-app>
 </template>
 
 <script lang="ts">

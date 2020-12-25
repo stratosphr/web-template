@@ -1,5 +1,12 @@
 export default {
     ssr: false,
-    buildModules: ['@nuxt/typescript-build'],
-    watch: ['api/**/*.{js,ts}']
+    watch: ['api/**/*.{js,ts}'],
+    buildModules: [
+        '@nuxt/typescript-build',
+        '@nuxtjs/vuetify'
+    ],
+    vuetify: {
+        treeShake: true,
+        customVariables: ['assets/variables.sass']
+    }
 }
