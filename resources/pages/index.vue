@@ -3,9 +3,27 @@
         <v-main>
             <v-container fluid>
                 <v-card>
+                    <v-card-title>
+                        <v-row align="center">
+                            <v-col>
+                                <v-divider />
+                            </v-col>
+                            <v-col>
+                                <sample />
+                            </v-col>
+                            <v-col>
+                                <v-divider />
+                            </v-col>
+                        </v-row>
+                    </v-card-title>
                     <v-card-text>
                         <sample />
                     </v-card-text>
+                    <v-card-actions class="blue lighten-3">
+                        <v-btn>
+                            Test
+                        </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-container>
         </v-main>
