@@ -33,14 +33,28 @@ export default {
     methods: {
         filters(): Filter<IUser> {
             return {
-                post: {
-                    title: $string(),
-                    comments: {
-                        content: $string(),
-                        likes: $number(),
-                        dislikes: $number()
+                post: [
+                    {
+                        title: [
+                            $string().contains('test'),
+                            $string().endsWith('hello')
+                        ],
+                        comments: [
+                            {
+                                content: $string(),
+                                likes: $number(),
+                                dislikes: [
+                                    $number(),
+                                    $number()
+                                ]
+                            },
+                            {
+                                content: $string()
+                            }
+                        ]
                     }
-                }
+                ],
+                name: $string().like('hello%world')
             }
         }
     }
