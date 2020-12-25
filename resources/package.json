@@ -13,7 +13,8 @@
         "@nuxt/typescript-build": "^2.0.3",
         "@nuxtjs/eslint-config-typescript": "^5.0.0",
         "@nuxtjs/vuetify": "^1.11.2",
-        "eslint": "^7.16.0"
+        "eslint": "^7.16.0",
+        "vuetify": "*"
     },
     "dependencies": {
         "@nuxt/typescript-runtime": "^2.0.0",
