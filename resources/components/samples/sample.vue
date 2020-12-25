@@ -1,5 +1,5 @@
 <template>
-    <h2>{{ sample() }}</h2>
+    <span>{{ sample() }}</span>
 </template>
 
 <script lang="ts">

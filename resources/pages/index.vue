@@ -1,20 +1,18 @@
 <template>
     <v-app>
-        <v-row>
-            <v-col>
+        <v-main>
+            <v-container fluid>
                 <v-card>
-                    <sample />
-                    <v-card-actions>
-                        <v-btn>
-                            Test
-                        </v-btn>
-                    </v-card-actions>
+                    <v-card-text>
+                        <sample />
+                    </v-card-text>
                 </v-card>
-            </v-col>
-            <v-col>
-                {{ filters() }}
-            </v-col>
-        </v-row>
+            </v-container>
+        </v-main>
+
+        <v-footer app>
+            <!-- -->
+        </v-footer>
     </v-app>
 </template>
 
