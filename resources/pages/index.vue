@@ -27,10 +27,6 @@
                 </v-card>
             </v-container>
         </v-main>
-
-        <v-footer app>
-            <!-- -->
-        </v-footer>
     </v-app>
 </template>
 
