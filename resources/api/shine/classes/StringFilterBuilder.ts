@@ -1,6 +1,6 @@
-import AFilterBuilder from '~/api/shine/classes/AFilterBuilder'
+import APrimitiveTypeFilterBuilder from '~/api/shine/classes/APrimitiveTypeFilterBuilder'
 
-export default class StringFilterBuilder extends AFilterBuilder {
+export default class StringFilterBuilder extends APrimitiveTypeFilterBuilder {
     // noinspection JSUnusedLocalSymbols
     private _(): void {
     }

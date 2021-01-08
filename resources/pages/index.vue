@@ -18,6 +18,7 @@
                     </v-card-title>
                     <v-card-text>
                         <sample />
+                        {{ filters }}
                     </v-card-text>
                     <v-card-actions class="blue lighten-3">
                         <v-btn>
@@ -33,7 +34,11 @@
 <script lang="ts">
 import IUser from '~/api/samples/models/IUser'
 import { $number } from '~/api/shine/classes/NumberFilterBuilder'
+import { cos, sin } from '~/api/shine/classes/NumberFunction'
+import { $numberFun } from '~/api/shine/classes/NumberFunctionFilterBuilder'
 import { $string } from '~/api/shine/classes/StringFilterBuilder'
+import { concat, concatWs } from '~/api/shine/classes/StringFunction'
+import { $stringFun } from '~/api/shine/classes/StringFunctionFilterBuilder'
 import { Filter } from '~/api/shine/types/Filter'
 import Sample from '~/components/samples/sample.vue'
 
@@ -42,7 +47,7 @@ export default {
 
     components: { Sample },
 
-    methods: {
+    computed: {
         filters(): Filter<IUser> {
             return {
                 post: [
@@ -66,7 +71,28 @@ export default {
                         ]
                     }
                 ],
-                name: $string().like('hello%world')
+                name: $string().like('hello%world'),
+                $functions: [
+                    $stringFun<IUser>(
+                        concat<IUser>(
+                            'post.comments.post.comments.post.comments.content',
+                            '"test"',
+                            'post.comments.post.comments.post.comments.post',
+                            'name',
+                            'id',
+                            'firstname',
+                            concat<IUser>('firstname', '"a"', '"Hello, world!"', 'age'),
+                            concatWs<IUser>('"post.comments.content"', 'post.comments'),
+                            cos<IUser>(sin<IUser>('age'))
+                        )
+                    ).like('test%'),
+                    $stringFun<IUser>(
+                        sin<IUser>('id')
+                    ).like('test%'),
+                    $numberFun<IUser>(
+                        sin<IUser>(cos<IUser>('firstname'))
+                    ).geq(10)
+                ]
             }
         }
     }

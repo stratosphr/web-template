@@ -1,40 +1,22 @@
-export default abstract class AFilterBuilder {
-    private readonly filters: { [operator: string]: any }
-
-    constructor() {
-        this.filters = {}
+export default class AFilterBuilder {
+    private readonly _filters: {
+        where: { [operator: string]: any },
+        whereRaw: string[]
+    } = {
+        where: {},
+        whereRaw: []
     }
 
-    // noinspection JSUnusedGlobalSymbols
-    public equals(value: string | number): this {
-        return this.addConstraint('=', value)
-    }
-
-    // noinspection JSUnusedGlobalSymbols
-    public startsWith(value: string | number): this {
-        return this.like(`${value}%`)
-    }
-
-    // noinspection JSUnusedGlobalSymbols
-    public contains(value: string | number): this {
-        return this.like(`%${value}%`)
-    }
-
-    // noinspection JSUnusedGlobalSymbols
-    public endsWith(value: string | number): this {
-        return this.like(`%${value}`)
-    }
-
-    // noinspection JSUnusedGlobalSymbols
-    public like(value: string | number): this {
-        return this.addConstraint('like', value)
-    }
-
-    protected addConstraint(operator: string, params: any): this {
-        if (this.filters[operator] === undefined) {
-            this.filters[operator] = []
+    protected where(operator: string, params: any): this {
+        if (this._filters.where[operator] === undefined) {
+            this._filters.where[operator] = []
         }
-        this.filters[operator].push(params)
+        this._filters.where[operator].push(params)
+        return this
+    }
+
+    protected whereRaw(raw: string): this {
+        this._filters.whereRaw.push(raw)
         return this
     }
 }
