@@ -16,11 +16,11 @@ module.exports = {
         '.*\\.(vue)$': 'vue-jest'
     },
     testMatch: [
-        '**/tests/**/*.test.[jt]s'
+        '**/tests/unit/**/**.test.[jt]s'
     ],
     collectCoverage: true,
     setupFiles: [
-        '<rootDir>/tests/jest.setup.js'
+        '<rootDir>/tests/unit/jest.setup.js'
     ],
     collectCoverageFrom: [
         '<rootDir>/components/**/*.vue',

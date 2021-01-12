@@ -1,5 +1,12 @@
 <template>
-    <span>{{ sample() }}</span>
+    <v-row>
+        <v-col cols="12">
+            <span class="caption">{{ sample() }}</span>
+        </v-col>
+        <v-col cols="12">
+            <v-text-field />
+        </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">

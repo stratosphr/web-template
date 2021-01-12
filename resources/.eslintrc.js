@@ -2,6 +2,9 @@ module.exports = {
     extends: [
         '@nuxtjs/eslint-config-typescript'
     ],
+    globals: {
+        'cy': true
+    },
     rules: {
         indent: ['warn', 4],
         'quote-props': ['off'],

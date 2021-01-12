@@ -4,26 +4,26 @@
             <v-container fluid>
                 <v-card>
                     <v-card-title>
-                        <v-row align="center">
-                            <v-col>
-                                <v-divider />
-                            </v-col>
-                            <v-col>
-                                <sample />
-                            </v-col>
-                            <v-col>
-                                <v-divider />
-                            </v-col>
-                        </v-row>
+                        Sample title
                     </v-card-title>
                     <v-card-text>
                         <sample />
-                        {{ filters }}
+                        <span
+                            class="caption"
+                            v-text="filters"
+                        />
                     </v-card-text>
                     <v-card-actions class="blue lighten-3">
-                        <v-btn>
-                            Test
-                        </v-btn>
+                        <v-row>
+                            <v-col cols="auto">
+                                <v-btn @click="click">
+                                    Test
+                                </v-btn>
+                            </v-col>
+                            <v-col>
+                                Test button was clicked {{ count }} times !
+                            </v-col>
+                        </v-row>
                     </v-card-actions>
                 </v-card>
             </v-container>
@@ -46,6 +46,12 @@ export default {
     name: 'index',
 
     components: { Sample },
+
+    data() {
+        return {
+            count: 0
+        }
+    },
 
     computed: {
         filters(): Filter<IUser> {
@@ -94,6 +100,12 @@ export default {
                     ).geq(10)
                 ]
             }
+        }
+    },
+
+    methods: {
+        click() {
+            ++this.count
         }
     }
 }

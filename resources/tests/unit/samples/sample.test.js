@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import Vuetify from 'vuetify'
 import sample from '~/components/samples/sample'
-import index from '~/pages/index'
+import index from '~/pages'
 
 describe('Sample test suit', () => {
     let vuetify
