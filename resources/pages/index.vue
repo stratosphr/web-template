@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import IUser from '~/api/samples/models/IUser'
 import { $number } from '~/api/shine/classes/NumberFilterBuilder'
 import { cos, sin } from '~/api/shine/classes/NumberFunction'
@@ -42,7 +43,7 @@ import { $stringFun } from '~/api/shine/classes/StringFunctionFilterBuilder'
 import { Filter } from '~/api/shine/types/Filter'
 import Sample from '~/components/samples/sample.vue'
 
-export default {
+export default Vue.extend({
     name: 'index',
 
     components: { Sample },
@@ -108,7 +109,7 @@ export default {
             ++this.count
         }
     }
-}
+})
 </script>
 
 <style scoped>
