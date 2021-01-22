@@ -5,6 +5,9 @@ export default {
         '@nuxt/typescript-build',
         '@nuxtjs/vuetify'
     ],
+    plugins: [
+        '~/plugins/colors.ts'
+    ],
     vuetify: {
         treeShake: true,
         customVariables: ['assets/variables.sass']
