@@ -2,30 +2,59 @@
     <v-app>
         <v-main>
             <v-container fluid>
-                <v-card>
-                    <v-card-title>
-                        Sample title
-                    </v-card-title>
-                    <v-card-text>
-                        <sample />
-                        <span
-                            class="caption"
-                            v-text="filters"
-                        />
-                    </v-card-text>
-                    <v-card-actions class="blue lighten-3">
-                        <v-row>
-                            <v-col cols="auto">
-                                <v-btn @click="click">
-                                    Test
-                                </v-btn>
-                            </v-col>
-                            <v-col>
-                                Test button was clicked {{ count }} times !
-                            </v-col>
-                        </v-row>
-                    </v-card-actions>
-                </v-card>
+                <s-data-table
+                    v-slot="{items}"
+                    :headers="headers"
+                    :style="{backgroundColor: $colors.lightBlue.base, border: `solid 2px ${$colors.orange.base}`}"
+                >
+                    <v-scroll-y-transition appear>
+                        <s-data-table-header>
+                            <s-data-table-row>
+                                <s-data-table-cell
+                                    v-for="(header, headerIndex) in headers"
+                                    :key="headerIndex"
+                                    class="text-center"
+                                >
+                                    {{ header.text }}
+                                </s-data-table-cell>
+                            </s-data-table-row>
+                            <s-data-table-row>
+                                <!--suppress JSUnusedLocalSymbols -->
+                                <s-data-table-cell
+                                    v-for="(header, headerIndex) in headers"
+                                    :key="headerIndex"
+                                    class="text-center"
+                                />
+                            </s-data-table-row>
+                            <s-data-table-row :style="{boxSizing: 'content-box'}">
+                                <!--suppress JSUnusedLocalSymbols -->
+                                <s-data-table-cell
+                                    v-for="(header, headerIndex) in headers"
+                                    :key="headerIndex"
+                                    class="text-center px-2"
+                                >
+                                    <s-input-text />
+                                </s-data-table-cell>
+                            </s-data-table-row>
+                        </s-data-table-header>
+                    </v-scroll-y-transition>
+                    <v-scroll-x-transition appear>
+                        <s-data-table-body>
+                            <tr
+                                v-for="(item, itemIndex) in items"
+                                :key="itemIndex"
+                            >
+                                <td
+                                    v-for="(header, headerIndex) in headers"
+                                    :key="headerIndex"
+                                    class="text-center"
+                                >
+                                    {{ item[header.value] }}
+                                </td>
+                            </tr>
+                        </s-data-table-body>
+                    </v-scroll-x-transition>
+                </s-data-table>
             </v-container>
         </v-main>
     </v-app>
@@ -41,12 +70,17 @@ import { $string } from '~/api/shine/classes/StringFilterBuilder'
 import { concat, concatWs } from '~/api/shine/classes/StringFunction'
 import { $stringFun } from '~/api/shine/classes/StringFunctionFilterBuilder'
 import { Filter } from '~/api/shine/types/Filter'
-import Sample from '~/components/samples/sample.vue'
+import SDataTableBody from '~/components/shine/data-viewers/s-data-table-body.vue'
+import SDataTableCell from '~/components/shine/data-viewers/s-data-table-cell.vue'
+import SDataTableHeader from '~/components/shine/data-viewers/s-data-table-header.vue'
+import SDataTableRow from '~/components/shine/data-viewers/s-data-table-row.vue'
+import SDataTable from '~/components/shine/data-viewers/s-data-table.vue'
+import SInputText from '~/components/shine/inputs/s-input-text.vue'
 
 export default Vue.extend({
     name: 'index',
 
-    components: { Sample },
+    components: { SInputText, SDataTableCell, SDataTableRow, SDataTableBody, SDataTableHeader, SDataTable },
 
     data() {
         return {
@@ -101,6 +135,30 @@ export default Vue.extend({
                     ).geq(10)
                 ]
             }
+        },
+        headers(): { value: keyof IUser | string, text: string }[] {
+            return [
+                {
+                    value: 'id',
+                    text: 'ID'
+                },
+                {
+                    value: 'name',
+                    text: 'Name'
+                },
+                {
+                    value: 'firstname',
+                    text: 'Firstname'
+                },
+                {
+                    value: 'age',
+                    text: 'Age'
+                },
+                {
+                    value: 'posts_count',
+                    text: 'Posts counts'
+                }
+            ]
         }
     },
 
