@@ -1,6 +1,9 @@
 <template>
     <v-app>
         <v-main>
+            <v-card>
+                <v-card-text>{{ count }}</v-card-text>
+            </v-card>
             <v-container fluid>
                 <s-data-table
                     v-slot="{items}"
@@ -160,6 +163,12 @@ export default Vue.extend({
                 }
             ]
         }
+    },
+
+    mounted() {
+        window.Echo.channel('home').listen('NewMessage', (e: any) => {
+            this.count = e.message
+        })
     },
 
     methods: {

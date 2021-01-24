@@ -1,5 +1,4 @@
-<?php
-/** @noinspection ALL */
+<?php /** @noinspection ALL */
 // @formatter:off
 
 /**

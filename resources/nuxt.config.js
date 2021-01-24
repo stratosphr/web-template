@@ -6,7 +6,8 @@ export default {
         '@nuxtjs/vuetify'
     ],
     plugins: [
-        '~/plugins/colors.ts'
+        '~/plugins/colors.ts',
+        '~/plugins/echo.ts'
     ],
     vuetify: {
         treeShake: true,
