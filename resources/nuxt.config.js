@@ -9,6 +9,9 @@ export default {
             }
         ]
     },
+    modules: [
+        '@nuxtjs/axios'
+    ],
     buildModules: [
         '@nuxt/typescript-build',
         '@nuxtjs/vuetify'
@@ -20,5 +23,8 @@ export default {
     vuetify: {
         treeShake: true,
         customVariables: ['assets/variables.sass']
+    },
+    axios: {
+        baseURL: 'http://web-template/api'
     }
 }

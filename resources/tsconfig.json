@@ -23,6 +23,7 @@
             ]
         },
         "types": [
+            "@nuxtjs/axios",
             "@types/node",
             "@nuxt/types",
             "@types/lodash"
