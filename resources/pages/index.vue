@@ -1,66 +1,57 @@
 <template>
-    <v-app>
-        <v-main>
-            <v-card>
-                <v-card-text>{{ count }}</v-card-text>
-            </v-card>
-            <v-container fluid>
-                <s-data-table
-                    v-slot="{items}"
-                    :headers="headers"
-                    :style="{backgroundColor: $colors.lightBlue.base, border: `solid 2px ${$colors.orange.base}`}"
+    <s-data-table
+        v-slot="{items}"
+        :headers="headers"
+        :style="{backgroundColor: $colors.lightBlue.accent1, border: `solid 2px ${$colors.orange.accent1}`}"
+    >
+        <v-scroll-y-transition appear>
+            <s-data-table-header>
+                <s-data-table-row>
+                    <s-data-table-cell
+                        v-for="(header, headerIndex) in headers"
+                        :key="headerIndex"
+                        class="text-center"
+                    >
+                        {{ header.text }}
+                    </s-data-table-cell>
+                </s-data-table-row>
+                <s-data-table-row>
+                    <!--suppress JSUnusedLocalSymbols -->
+                    <s-data-table-cell
+                        v-for="(header, headerIndex) in headers"
+                        :key="headerIndex"
+                        class="text-center"
+                    />
+                </s-data-table-row>
+                <s-data-table-row :style="{boxSizing: 'content-box'}">
+                    <!--suppress JSUnusedLocalSymbols -->
+                    <s-data-table-cell
+                        v-for="(header, headerIndex) in headers"
+                        :key="headerIndex"
+                        class="text-center px-2"
+                    >
+                        <s-input-text />
+                    </s-data-table-cell>
+                </s-data-table-row>
+            </s-data-table-header>
+        </v-scroll-y-transition>
+        <v-scroll-x-transition appear>
+            <s-data-table-body>
+                <tr
+                    v-for="(item, itemIndex) in items"
+                    :key="itemIndex"
                 >
-                    <v-scroll-y-transition appear>
-                        <s-data-table-header>
-                            <s-data-table-row>
-                                <s-data-table-cell
-                                    v-for="(header, headerIndex) in headers"
-                                    :key="headerIndex"
-                                    class="text-center"
-                                >
-                                    {{ header.text }}
-                                </s-data-table-cell>
-                            </s-data-table-row>
-                            <s-data-table-row>
-                                <!--suppress JSUnusedLocalSymbols -->
-                                <s-data-table-cell
-                                    v-for="(header, headerIndex) in headers"
-                                    :key="headerIndex"
-                                    class="text-center"
-                                />
-                            </s-data-table-row>
-                            <s-data-table-row :style="{boxSizing: 'content-box'}">
-                                <!--suppress JSUnusedLocalSymbols -->
-                                <s-data-table-cell
-                                    v-for="(header, headerIndex) in headers"
-                                    :key="headerIndex"
-                                    class="text-center px-2"
-                                >
-                                    <s-input-text />
-                                </s-data-table-cell>
-                            </s-data-table-row>
-                        </s-data-table-header>
-                    </v-scroll-y-transition>
-                    <v-scroll-x-transition appear>
-                        <s-data-table-body>
-                            <tr
-                                v-for="(item, itemIndex) in items"
-                                :key="itemIndex"
-                            >
-                                <td
-                                    v-for="(header, headerIndex) in headers"
-                                    :key="headerIndex"
-                                    class="text-center"
-                                >
-                                    {{ item[header.value] }}
-                                </td>
-                            </tr>
-                        </s-data-table-body>
-                    </v-scroll-x-transition>
-                </s-data-table>
-            </v-container>
-        </v-main>
-    </v-app>
+                    <td
+                        v-for="(header, headerIndex) in headers"
+                        :key="headerIndex"
+                        class="text-center"
+                    >
+                        {{ item[header.value] }}
+                    </td>
+                </tr>
+            </s-data-table-body>
+        </v-scroll-x-transition>
+    </s-data-table>
 </template>
 
 <script lang="ts">
