@@ -1,6 +1,11 @@
 export default {
     ssr: false,
     watch: ['api/**/*.{js,ts}'],
+    router: {
+        middleware: [
+            'auth'
+        ]
+    },
     head: {
         meta: [
             {
@@ -10,7 +15,8 @@ export default {
         ]
     },
     modules: [
-        '@nuxtjs/axios'
+        '@nuxtjs/axios',
+        '@nuxtjs/auth-next'
     ],
     buildModules: [
         '@nuxt/typescript-build',
