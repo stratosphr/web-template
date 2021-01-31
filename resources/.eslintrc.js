@@ -3,7 +3,8 @@ module.exports = {
         '@nuxtjs/eslint-config-typescript'
     ],
     globals: {
-        'cy': true
+        'cy': true,
+        '_': true
     },
     rules: {
         indent: ['warn', 4],

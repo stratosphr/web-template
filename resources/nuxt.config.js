@@ -25,7 +25,8 @@ export default {
     ],
     plugins: [
         '~/plugins/colors.ts',
-        '~/plugins/echo.ts'
+        '~/plugins/echo.ts',
+        '~/plugins/lodash.ts'
     ],
     vuetify: {
         treeShake: true,
