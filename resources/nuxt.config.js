@@ -1,6 +1,7 @@
 export default {
     ssr: false,
     watch: ['api/**/*.{js,ts}'],
+    loading: false,
     router: {
         middleware: [
             'auth'
