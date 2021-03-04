@@ -6,11 +6,13 @@
         <v-text-field
             v-model="email"
             label="E-mail"
+            autocomplete="email"
         />
         <v-text-field
             v-model="password"
             label="Password"
             type="password"
+            autocomplete="current-password"
         />
         <v-btn
             type="submit"
@@ -25,8 +27,8 @@ export default {
 
     data() {
         return {
-            email: 'stratosphr@gmail.com',
-            password: 'password'
+            email: null,
+            password: null
         }
     },
 

@@ -1,3 +1,6 @@
-import _ from 'lodash'
+import lodash from 'lodash'
+import Vue from 'vue'
 
-window._ = _
+import VueLodash from 'vue-lodash'
+
+Vue.use(VueLodash, { lodash })

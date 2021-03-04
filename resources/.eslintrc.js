@@ -10,9 +10,10 @@ module.exports = {
         indent: ['warn', 4],
         'quote-props': ['off'],
         'space-before-function-paren': ['warn', 'never'],
-        'vue/component-definition-name-casing': ['warn', 'kebab-case'],
         'vue/html-indent': ['warn', 4],
-        'vue/name-property-casing': ['warn', 'kebab-case'],
+        'vue/component-definition-name-casing': ['off'],
+        'vue/name-property-casing': ['off'],
+        'camelcase': ['off'],
         'vue/order-in-components': ['error', {
             'order': [
                 'el',
@@ -48,7 +49,6 @@ module.exports = {
                 'computed',
                 'watch',
                 'watchQuery',
-                'LIFECYCLE_HOOKS',
                 'methods',
                 ['template', 'render'],
                 'renderError'
