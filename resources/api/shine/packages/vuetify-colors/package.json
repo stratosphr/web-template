@@ -1,0 +1,10 @@
+{
+    "name": "vuetify-colors",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "author": "Guillaume Voiron",
+    "license": "ISC",
+    "types": "index.d.ts",
+    "typing": "index.d.ts"
+}

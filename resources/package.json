@@ -37,6 +37,8 @@
         "nuxt": "latest",
         "pusher-js": "^7.0.2",
         "typescript": "^4.1.3",
-        "vue": "^2.6.12"
+        "vue": "^2.6.12",
+        "vue-lodash": "^2.1.2",
+        "vuetify-colors": "file:api/shine/packages/vuetify-colors"
     }
 }

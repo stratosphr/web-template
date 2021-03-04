@@ -1,9 +1,4 @@
 import Vue from 'vue'
-import colors from 'vuetify/lib/util/colors'
+import VuetifyColors from '~/api/shine/packages/vuetify-colors'
 
-Vue.use({
-    install(Vue: any) {
-        Vue.$colors = colors
-        Vue.prototype.$colors = colors
-    }
-})
+Vue.use(VuetifyColors)
