@@ -29,7 +29,8 @@ export default {
     plugins: [
         '~/plugins/colors.ts',
         '~/plugins/echo.ts',
-        '~/plugins/lodash.ts'
+        '~/plugins/lodash.ts',
+        '~/plugins/transform.ts'
     ],
     vuetify: {
         treeShake: true,

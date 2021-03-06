@@ -36,6 +36,7 @@
         "lodash": "^4.17.20",
         "nuxt": "latest",
         "pusher-js": "^7.0.2",
+        "transform": "file:api/shine/packages/vue-transform",
         "typescript": "^4.1.3",
         "vue": "^2.6.12",
         "vue-lodash": "^2.1.2",

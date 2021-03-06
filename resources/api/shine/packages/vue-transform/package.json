@@ -1,0 +1,10 @@
+{
+    "name": "transform",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "author": "Guillaume Voiron",
+    "license": "ISC",
+    "types": "index.d.ts",
+    "typing": "index.d.ts"
+}
