@@ -36,7 +36,7 @@
             </v-row>
         </div>
         <div
-            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"
+            :style="{width: '200px', height: '200px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"
             class="drag"
         >
             Also drag me
@@ -57,28 +57,30 @@ export type DraggableHandlers = {
 }
 
 export type DraggableOptions = {
-    userSelect: boolean,
-    ghost: boolean,
-    deep: boolean,
+    userSelect?: boolean,
+    ghost?: boolean,
+    deep?: boolean,
 }
 
 export default Vue.extend({
     name: 'index',
 
     mounted() {
-        this.draggable('#draggable')
+        this.draggable('#draggable', {}, { ghost: true })
         this.draggable('.drag')
     },
 
     methods: {
-        draggable(selectors: string | string[], { start, drag, stop }: DraggableHandlers = {
-            start: () => {
-            },
-            drag: () => {
-            },
-            stop: () => {
-            }
-        }, { userSelect, deep }: DraggableOptions = { userSelect: false, ghost: false, deep: true }) {
+        draggable(selectors: string | string[], handlers: DraggableHandlers = {}, options: DraggableOptions = {}) {
+            const { start, drag, stop } = Object.assign(handlers, {
+                start: () => {
+                },
+                drag: () => {
+                },
+                stop: () => {
+                }
+            })
+            const { userSelect, deep, ghost } = Object.assign({ userSelect: false, ghost: false, deep: true }, options)
             const nodes = document.querySelectorAll(Array.isArray(selectors) ? selectors.join(', ') : selectors)
             if (nodes.length) {
                 nodes.forEach((node: Element) => {
@@ -88,24 +90,32 @@ export default Vue.extend({
                         }
                         node.addEventListener('mousedown', (e: MouseEvent) => {
                             e.preventDefault()
-                            document.addEventListener('mousemove', (e: MouseEvent) => {
-                                clone.style.left = `${e.clientX - offsetX}px`
-                                clone.style.top = `${e.clientY - offsetY}px`
+                            const mouseMoveHandler = (e: MouseEvent) => {
+                                element.style.left = `${e.clientX - offsetX}px`
+                                element.style.top = `${e.clientY - offsetY}px`
                                 drag && drag(e)
-                            }, true)
+                            }
+                            document.addEventListener('mousemove', mouseMoveHandler, true)
                             document.addEventListener('mouseup', (e: MouseEvent) => {
-                                document.removeEventListener('mousemove', drag as any, true)
-                                document.getElementById('app')!.removeChild(clone)
+                                document.removeEventListener('mousemove', mouseMoveHandler, true)
+                                if (ghost) {
+                                    element.style.opacity = node.style.opacity
+                                    node.remove()
+                                    this.draggable(selectors, handlers, options)
+                                }
                                 stop && stop(e)
                             }, { once: true })
-                            const clone = node.cloneNode(deep) as HTMLElement
+                            const element = ghost ? node.cloneNode(deep) as HTMLElement : node
                             const { left, top } = node.getBoundingClientRect()
                             const { offsetX, offsetY } = { offsetX: e.clientX - left, offsetY: e.clientY - top }
-                            document.getElementById('app')!.appendChild(clone)
-                            clone.style.position = 'absolute'
-                            clone.style.left = `${left}px`
-                            clone.style.top = `${top}px`
-                            clone.style.opacity = '0.4'
+                            document.getElementById('app')!.appendChild(element)
+                            element.style.position = 'absolute'
+                            element.style.left = `${left}px`
+                            element.style.top = `${top}px`
+                            element.style.zIndex = '999999999999999999999999999999999999999999999999'
+                            if (ghost) {
+                                element.style.opacity = '0.4'
+                            }
                             start && start(e)
                         })
                     }
