@@ -1,8 +1,8 @@
 <template>
     <div id="container">
         <div
-            id="draggable"
             :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.blue.base}`, backgroundColor: $colors.blue.lighten5}"
+            class="draggable"
         >
             <v-row
                 align="center"
@@ -37,12 +37,15 @@
         </div>
         <div
             :style="{width: '200px', height: '200px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"
-            class="drag"
+            class="draggable-horizontally"
         >
-            Also drag me
+            I can only be dragged horizontally
         </div>
-        <div :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.red.base}`, backgroundColor: $colors.red.lighten5}">
-            I shouldn't be draggable
+        <div
+            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.amber.base}`, backgroundColor: $colors.amber.lighten5}"
+            class="draggable-vertically"
+        >
+            I can only be dragged vertically
         </div>
     </div>
 </template>
@@ -59,6 +62,7 @@ export type DraggableHandlers = {
 export type DraggableOptions = {
     userSelect?: boolean,
     ghost?: boolean,
+    axis?: 'all' | 'horizontal' | 'vertical'
     deep?: boolean,
 }
 
@@ -66,8 +70,9 @@ export default Vue.extend({
     name: 'index',
 
     mounted() {
-        this.draggable('#draggable', {}, { ghost: true })
-        this.draggable('.drag')
+        this.draggable('.draggable', {}, { ghost: false, axis: 'all' })
+        this.draggable('.draggable-horizontally', {}, { ghost: false, axis: 'horizontal' })
+        this.draggable('.draggable-vertically', {}, { ghost: false, axis: 'vertical' })
     },
 
     methods: {
@@ -80,7 +85,7 @@ export default Vue.extend({
                 stop: () => {
                 }
             })
-            const { userSelect, deep, ghost } = Object.assign({ userSelect: false, ghost: false, deep: true }, options)
+            const { userSelect, ghost, axis, deep } = Object.assign({ userSelect: false, axis: 'all', ghost: false, deep: true }, options) as DraggableOptions
             const nodes = document.querySelectorAll(Array.isArray(selectors) ? selectors.join(', ') : selectors)
             if (nodes.length) {
                 nodes.forEach((node: Element) => {
@@ -90,10 +95,27 @@ export default Vue.extend({
                         }
                         node.addEventListener('mousedown', (e: MouseEvent) => {
                             e.preventDefault()
-                            const mouseMoveHandler = (e: MouseEvent) => {
-                                element.style.left = `${e.clientX - offsetX}px`
-                                element.style.top = `${e.clientY - offsetY}px`
-                                drag && drag(e)
+                            let mouseMoveHandler: (e: MouseEvent) => void
+                            switch (axis) {
+                            case 'horizontal':
+                                mouseMoveHandler = (e: MouseEvent) => {
+                                    element.style.left = `${e.clientX - offsetX}px`
+                                    drag && drag(e)
+                                }
+                                break
+                            case 'vertical':
+                                mouseMoveHandler = (e: MouseEvent) => {
+                                    element.style.top = `${e.clientY - offsetY}px`
+                                    drag && drag(e)
+                                }
+                                break
+                            default:
+                                mouseMoveHandler = (e: MouseEvent) => {
+                                    element.style.left = `${e.clientX - offsetX}px`
+                                    element.style.top = `${e.clientY - offsetY}px`
+                                    drag && drag(e)
+                                }
+                                break
                             }
                             document.addEventListener('mousemove', mouseMoveHandler, true)
                             document.addEventListener('mouseup', (e: MouseEvent) => {
