@@ -1,5 +1,9 @@
 <template>
-    <div id="container">
+    <div
+        id="container"
+        class="red mx-auto"
+        style="width: 400px; height: 1000px"
+    >
         <div
             :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.blue.base}`, backgroundColor: $colors.blue.lighten5}"
             class="draggable"
@@ -35,18 +39,18 @@
                 </v-col>
             </v-row>
         </div>
-        <div
-            :style="{width: '200px', height: '200px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"
-            class="draggable-horizontally"
-        >
-            I can only be dragged horizontally
-        </div>
-        <div
-            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.amber.base}`, backgroundColor: $colors.amber.lighten5}"
-            class="draggable-vertically"
-        >
-            I can only be dragged vertically
-        </div>
+        <!--        <div-->
+        <!--            :style="{width: '200px', height: '200px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"-->
+        <!--            class="draggable-horizontally"-->
+        <!--        >-->
+        <!--            I can only be dragged horizontally-->
+        <!--        </div>-->
+        <!--        <div-->
+        <!--            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.amber.base}`, backgroundColor: $colors.amber.lighten5}"-->
+        <!--            class="draggable-vertically"-->
+        <!--        >-->
+        <!--            I can only be dragged vertically-->
+        <!--        </div>-->
     </div>
 </template>
 
@@ -62,7 +66,7 @@ export type DraggableHandlers = {
 export type DraggableOptions = {
     userSelect?: boolean,
     ghost?: boolean,
-    axis?: 'all' | 'horizontal' | 'vertical'
+    axis?: 'all' | 'horizontal' | 'vertical',
     deep?: boolean,
 }
 
@@ -85,7 +89,7 @@ export default Vue.extend({
                 stop: () => {
                 }
             })
-            const { userSelect, ghost, axis, deep } = Object.assign({ userSelect: false, axis: 'all', ghost: false, deep: true }, options) as DraggableOptions
+            const { userSelect, ghost, axis, deep } = Object.assign({ userSelect: false, ghost: false, axis: 'all', deep: true }, options) as DraggableOptions
             const nodes = document.querySelectorAll(Array.isArray(selectors) ? selectors.join(', ') : selectors)
             if (nodes.length) {
                 nodes.forEach((node: Element) => {
@@ -94,7 +98,6 @@ export default Vue.extend({
                             node.style.userSelect = 'none'
                         }
                         node.addEventListener('mousedown', (e: MouseEvent) => {
-                            e.preventDefault()
                             let mouseMoveHandler: (e: MouseEvent) => void
                             switch (axis) {
                             case 'horizontal':
@@ -111,8 +114,8 @@ export default Vue.extend({
                                 break
                             default:
                                 mouseMoveHandler = (e: MouseEvent) => {
-                                    element.style.left = `${e.clientX - offsetX}px`
-                                    element.style.top = `${e.clientY - offsetY}px`
+                                    element.style.left = `${e.pageX - offsetX - parent.offsetLeft}px`
+                                    element.style.top = `${e.pageY - offsetY - parent.offsetTop}px`
                                     drag && drag(e)
                                 }
                                 break
@@ -127,14 +130,16 @@ export default Vue.extend({
                                 }
                                 stop && stop(e)
                             }, { once: true })
+                            const parent = node.parentElement! as HTMLElement
                             const element = ghost ? node.cloneNode(deep) as HTMLElement : node
-                            const { left, top } = node.getBoundingClientRect()
-                            const { offsetX, offsetY } = { offsetX: e.clientX - left, offsetY: e.clientY - top }
-                            document.getElementById('app')!.appendChild(element)
-                            element.style.position = 'absolute'
-                            element.style.left = `${left}px`
-                            element.style.top = `${top}px`
-                            element.style.zIndex = '999999999999999999999999999999999999999999999999'
+                            const { left, top } = { left: node.offsetLeft, top: node.offsetTop }
+                            parent.appendChild(element)
+                            parent.style.overflow = 'auto'
+                            const { offsetX, offsetY } = { offsetX: e.pageX - left, offsetY: e.pageY - top }
+                            element.style.position = 'relative'
+                            element.style.left = `${left - parent.offsetLeft}px`
+                            element.style.top = `${top - parent.offsetTop}px`
+                            element.style.zIndex = '999999999999999'
                             if (ghost) {
                                 element.style.opacity = '0.4'
                             }
