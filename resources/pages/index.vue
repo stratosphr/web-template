@@ -51,6 +51,53 @@
         >
             I can only be dragged vertically
         </div>
+        <div
+            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.blue.base}`, backgroundColor: $colors.blue.lighten5}"
+            class="ghost-draggable"
+        >
+            <v-row
+                align="center"
+                class="fill-height"
+                no-gutters
+            >
+                <v-col
+                    class="text-center"
+                    cols="12"
+                >
+                    Drag me
+                </v-col>
+                <v-col
+                    class="text-center"
+                    cols="12"
+                >
+                    <v-btn
+                        class="caption"
+                        outlined
+                        style="text-transform: none"
+                        x-small
+                    >
+                        <v-icon
+                            left
+                            x-small
+                            v-text="'mdi-eye'"
+                        />
+                        Click me
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </div>
+        <div
+            :style="{width: '200px', height: '200px', border: `solid 1px ${$colors.green.base}`, backgroundColor: $colors.green.lighten5}"
+            class="ghost-draggable-horizontally"
+        >
+            I can only be dragged horizontally
+        </div>
+        <div
+            :style="{width: '100px', height: '100px', border: `solid 1px ${$colors.amber.base}`, backgroundColor: $colors.amber.lighten5}"
+            class="ghost-draggable-vertically"
+        >
+            I can only be dragged vertically
+        </div>
     </div>
 </template>
 
@@ -80,9 +127,12 @@ export default Vue.extend({
     name: 'index',
 
     mounted() {
-        this.draggable('.draggable', {}, {})
-        this.draggable('.draggable-horizontally', {}, { ghost: false, axis: 'horizontal' })
-        this.draggable('.draggable-vertically', {}, { ghost: false, axis: 'vertical' })
+        this.draggable('.draggable')
+        this.draggable('.draggable-horizontally', {}, { axis: 'horizontal' })
+        this.draggable('.draggable-vertically', {}, { axis: 'vertical' })
+        this.draggable('.ghost-draggable', {}, { ghost: true })
+        this.draggable('.ghost-draggable-horizontally', {}, { ghost: true, axis: 'horizontal' })
+        this.draggable('.ghost-draggable-vertically', {}, { ghost: true, axis: 'vertical' })
     },
 
     methods: {
