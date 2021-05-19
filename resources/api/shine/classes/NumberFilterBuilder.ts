@@ -1,5 +1,5 @@
 import APrimitiveTypeFilterBuilder from '~/api/shine/classes/APrimitiveTypeFilterBuilder'
-import { INumberFilter } from '~/api/shine/interface/INumberFilter'
+import { INumberFilter } from '~/api/shine/interfaces/INumberFilter'
 
 export default class NumberFilterBuilder extends APrimitiveTypeFilterBuilder implements INumberFilter {
     // noinspection JSUnusedGlobalSymbols

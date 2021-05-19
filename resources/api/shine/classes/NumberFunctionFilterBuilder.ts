@@ -1,7 +1,7 @@
 import AFilterBuilder from '~/api/shine/classes/AFilterBuilder'
 import NumberFunction from '~/api/shine/classes/NumberFunction'
-import IModel from '~/api/shine/interface/IModel'
-import { INumberFilter } from '~/api/shine/interface/INumberFilter'
+import IModel from '~/api/shine/interfaces/IModel'
+import { INumberFilter } from '~/api/shine/interfaces/INumberFilter'
 
 export default class NumberFunctionFilterBuilder<Model extends IModel> extends AFilterBuilder implements INumberFilter {
     private _functionBuilder: NumberFunction<Model>

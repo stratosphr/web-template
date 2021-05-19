@@ -1,5 +1,5 @@
 import AFunction from '~/api/shine/classes/AFunction'
-import IModel from '~/api/shine/interface/IModel'
+import IModel from '~/api/shine/interfaces/IModel'
 import { StringFunctionParameter } from '~/api/shine/types/StringFunctionParameter'
 
 export default class StringFunction<Model extends IModel> extends AFunction<Model, string> {

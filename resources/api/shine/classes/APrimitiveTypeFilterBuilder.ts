@@ -1,5 +1,5 @@
 import AFilterBuilder from '~/api/shine/classes/AFilterBuilder'
-import { IStringFilter } from '~/api/shine/interface/IStringFilter'
+import { IStringFilter } from '~/api/shine/interfaces/IStringFilter'
 
 export default abstract class APrimitiveTypeFilterBuilder extends AFilterBuilder implements IStringFilter {
     // noinspection JSUnusedGlobalSymbols

@@ -1,14 +1,14 @@
 import APrimitiveTypeFilterBuilder from '~/api/shine/classes/APrimitiveTypeFilterBuilder'
 import NumberFunction from '~/api/shine/classes/NumberFunction'
 import StringFunction from '~/api/shine/classes/StringFunction'
-import IModel from '~/api/shine/interface/IModel'
+import IModel from '~/api/shine/interfaces/IModel'
 
 export default class StringFunctionFilterBuilder<Model extends IModel> extends APrimitiveTypeFilterBuilder {
-    private _functionBuilder: StringFunction<Model> | NumberFunction<Model>
+    private $: StringFunction<Model> | NumberFunction<Model>
 
     constructor(functionBuilder: StringFunction<Model> | NumberFunction<Model>) {
         super()
-        this._functionBuilder = functionBuilder
+        this.$ = functionBuilder
     }
 }
 

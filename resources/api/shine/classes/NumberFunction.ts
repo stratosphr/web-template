@@ -1,5 +1,5 @@
 import AFunction from '~/api/shine/classes/AFunction'
-import IModel from '~/api/shine/interface/IModel'
+import IModel from '~/api/shine/interfaces/IModel'
 import { NumberFunctionParameter } from '~/api/shine/types/NumberFunctionParameter'
 
 export default class NumberFunction<Model extends IModel> extends AFunction<Model, number> {
