@@ -8,6 +8,11 @@ export default abstract class APrimitiveTypeFilterBuilder extends AFilterBuilder
     }
 
     // noinspection JSUnusedGlobalSymbols
+    public eq(value: string | number): this {
+        return this.equals(value)
+    }
+
+    // noinspection JSUnusedGlobalSymbols
     public startsWith(value: string | number): this {
         return this.like(`${value}%`)
     }

@@ -3,6 +3,7 @@ import NumberFunction from '~/api/shine/classes/NumberFunction'
 import StringFunction from '~/api/shine/classes/StringFunction'
 import IModel from '~/api/shine/interfaces/IModel'
 
+// @ts-ignore
 export default class StringFunctionFilterBuilder<Model extends IModel> extends APrimitiveTypeFilterBuilder {
     private $: StringFunction<Model> | NumberFunction<Model>
 
