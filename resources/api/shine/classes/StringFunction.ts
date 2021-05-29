@@ -10,4 +10,4 @@ export default class StringFunction<Model extends IModel> extends AFunction<Mode
 export const concat: <Model extends IModel>(...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => StringFunction<Model> = <Model extends IModel>(...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => new StringFunction<Model>('concat', fields)
 // @ts-ignore
 // noinspection JSUnusedGlobalSymbols
-export const concatWs: <Model extends IModel>(...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => StringFunction<Model> = <Model extends IModel>(...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => new StringFunction<Model>('concat_ws', fields)
+export const concatWs: <Model extends IModel>(separator: string, ...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => StringFunction<Model> = <Model extends IModel>(...fields: (StringFunctionParameter<Model> | StringFunction<Model>)[]) => new StringFunction<Model>('concat_ws', fields)
