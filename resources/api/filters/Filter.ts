@@ -8,34 +8,27 @@ import StringFilterBuilder from '~/api/shine/classes/StringFilterBuilder'
 import StringFunctionFilterBuilder from '~/api/shine/classes/StringFunctionFilterBuilder'
 import IModel from '~/api/shine/interfaces/IModel'
 
-export type Filter<Model extends IModel, PathsDepth extends number = 5, LeavesDepth extends number = 6> = Partial<{
+type RelationFilter<Model extends IModel, PathsDepth extends number, LeavesDepth extends number, Relation extends RelationPath<Model, PathsDepth, LeavesDepth>> = AtLeastOne<{
+    [Field in NonRelationFieldsAtPath<Model, Relation>]:
+    PathType<Model, Relation>[Field] extends string ?
+        StringFilterBuilder | StringFilterBuilder[] :
+        PathType<Model, Relation>[Field] extends number ?
+            NumberFilterBuilder | NumberFilterBuilder[] :
+            never
+} & {
+    // @ts-ignore
+    $functions: StringFunctionFilterBuilder<PathType<Model, Relation>> | NumberFunctionFilterBuilder<PathType<Model, Relation>> | (StringFunctionFilterBuilder<PathType<Model, Relation>> | NumberFunctionFilterBuilder<PathType<Model, Relation>>)[] | (StringFunctionFilterBuilder<PathType<Model, Relation>> | NumberFunctionFilterBuilder<PathType<Model, Relation>>)[][]
+}>
+
+type SimpleFilter<Model extends IModel, PathsDepth extends number = 5, LeavesDepth extends number = 6> = Partial<{
     [FieldOrRelation in keyof Model | RelationPath<Model, PathsDepth, LeavesDepth>]:
     FieldOrRelation extends RelationPath<Model, PathsDepth, LeavesDepth> ?
-        AtLeastOne<{
-            [Field in NonRelationFieldsAtPath<Model, FieldOrRelation>]:
-            PathType<Model, FieldOrRelation>[Field] extends string ?
-                StringFilterBuilder | StringFilterBuilder[] :
-                PathType<Model, FieldOrRelation>[Field] extends number ?
-                    NumberFilterBuilder | NumberFilterBuilder[] :
-                    never
-        } & {
-            $functions:
-                StringFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>> |
-                NumberFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>> |
-                (StringFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>> | NumberFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>>)[] |
-                (StringFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>> | NumberFunctionFilterBuilder<IModel & PathType<Model, FieldOrRelation>>)[][]
-        }> |
-        AtLeastOne<{
-            [Field in NonRelationFieldsAtPath<Model, FieldOrRelation>]:
-            PathType<Model, FieldOrRelation>[Field] extends string ?
-                StringFilterBuilder | StringFilterBuilder[] :
-                PathType<Model, FieldOrRelation>[Field] extends number ?
-                    NumberFilterBuilder | NumberFilterBuilder[] :
-                    never
-        }>[] :
+        RelationFilter<Model, PathsDepth, LeavesDepth, FieldOrRelation> | RelationFilter<Model, PathsDepth, LeavesDepth, FieldOrRelation>[] :
         Model[FieldOrRelation] extends string ?
             StringFilterBuilder | StringFilterBuilder[] :
             Model[FieldOrRelation] extends number ?
                 NumberFilterBuilder | NumberFilterBuilder[] :
                 never
 } & { $functions: StringFunctionFilterBuilder<Model> | NumberFunctionFilterBuilder<Model> | (StringFunctionFilterBuilder<Model> | NumberFunctionFilterBuilder<Model>)[] | (StringFunctionFilterBuilder<Model> | NumberFunctionFilterBuilder<Model>)[][] }>
+
+export type Filter<Model extends IModel, PathsDepth extends number = 5, LeavesDepth extends number = 6> = SimpleFilter<Model, PathsDepth, LeavesDepth> | SimpleFilter<Model, PathsDepth, LeavesDepth>[]
